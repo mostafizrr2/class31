@@ -18,23 +18,27 @@
    <div class="row">
        <div class="col-md-8 offset-md-2">
 
-       <form action="action.php" method="post">
+       <form action="">
             <div class="form-group">
                 <label for="">Number 1</label>
-                <input name="number1" type="number" class="form-control">
+                <input id="number1"  type="number" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="">Operator</label>
-                <input name="operator" type="text" class="form-control">
+                <input id="operator" type="text" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="">Number 2</label>
-                <input name="number2" type="number" class="form-control">
+                <input id="number2" type="number" class="form-control">
             </div>
 
-            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+            <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+           
+            <h1 id="get-result" style="float:right">
+              result
+            </h1>
         </form>
 
 
@@ -47,7 +51,37 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+<script>
+  $(function(){
+     $('#submit').click(function(e){
 
+         // Stop page reload.
+        e.preventDefault();
+         
+        var num1 = $('#number1').val();
+        var num2 = $('#number2').val();
+        var opr = $('#operator').val(); 
+       
+        $.ajax({
+            url: "action.php",
+            method: "POST",
+            data : { 
+                'number1' : num1,
+                'number2' : num2,
+                'operator' : opr,
+             },
+
+
+            success : function(res){
+                  $('#get-result').html(res);
+             },
+
+        });  
+        
+
+     });  
+  });
+</script>
 
 </body>
 </html>
